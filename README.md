@@ -14,6 +14,43 @@ CBC: py CBC.py
 
 Testi: py -m unittest -v
 
+# Testa piemēri
+## AES
+1. 
+- Atslēga: `000102030405060708090a0b0c0d0e0f`
+- Ievads: `00112233445566778899aabbccddeeff`
+- Šifrēšanas rezultāts: `69c4e0d86a7b0430d8cdb78070b4c55a`
+2. 
+- Atslēga: `2b7e151628aed2a6abf7158809cf4f3c`
+- Ievads: `3243f6a8885a308d313198a2e0370734`
+- Šifrēšanas rezultāts: `3925841d02dc09fbdc118597196a0b32`
+3.
+- Atslēga: `0123456789abcdeffedcba9876543210`
+- Ievads: `f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0`
+- Šifrēšanas rezultāts: `0e969292c1b107c2c5be3c5992b569c2`
+
+Atšifrējot iepriekšējos rezultātus ar attiecīgajām atslēgām, jāatgriežas pie sākotnējiem ievadiem.
+
+## CBC/AES
+1.
+Šifrēšana
+- Izveido failu `hello.bin`:
+    - faila saturs: `HELLO`
+    - hex: `48454c4c4f`
+- atslēga: `0123456789abcdeffedcba9876543210`
+- IV: `f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0`
+- Ievades fails: `hello.bin`
+- Izvades fails: `hello.enc`
+- Izvades faila saturs (hex): `f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0b587e4fda08ae043c6527e91ca28c2c8` (IV || ciphertext)
+
+Atšifrēšana:
+- Atslēga: `0123456789abcdeffedcba9876543210`
+- Ievades fails: `hello.enc`
+- Izvades fails: `hello_dec.bin`
+- Izvades faila saturs: `HELLO` (hex: `48454c4c4f`)
+
+Atšifrējot šo šifrēto failu ar attiecīgo atslēgu, jāatgriežas pie sākotnējā ievades faila satura.
+
 # Uzdevums un prasības
 Jārealizē divas programmas bez gataviem kriptogrāfiskiem bibliotēku moduļiem:  
 1. **AES-128 bitu bloku šifrs**
