@@ -1,6 +1,3 @@
-# cbc_cli.py
-from __future__ import annotations
-
 from pathlib import Path
 
 from CBC_core import cbc_encrypt_file_format, cbc_decrypt_file_format
