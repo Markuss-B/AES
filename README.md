@@ -1,9 +1,9 @@
 # Projekta struktūra
-- AES_tables.py – Rijndael SBOX, INV_SBOX un RCON konstantes. 
-- AES_core.py – AES-128: datu pārveidojumi, KeyExpansion, šifrēšana/atšifrēšana un raunda operācijas.
-- AES.py – lietotāja saskarne AES blokam. 
-- CBC_core.py – CBC, padding/unpadding.
-- CBC.py – lietotāja saskarne CBC failiem. 
+- AES_tables.py - Rijndael SBOX, INV_SBOX un RCON konstantes. 
+- AES_core.py - AES-128: datu pārveidojumi, KeyExpansion, šifrēšana/atšifrēšana un raunda operācijas.
+- AES.py - lietotāja saskarne AES blokam. 
+- CBC_core.py - CBC, padding/unpadding.
+- CBC.py - lietotāja saskarne CBC failiem. 
 - test_*.py un debug.py - testi un debugging
 
 # Palaišana
