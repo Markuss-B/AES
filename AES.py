@@ -1,20 +1,18 @@
-from __future__ import annotations
-
-from AES_core import hex_to_bytes, bytes_to_hex, aes_encrypt_block, aes_decrypt_block
+from AES_core import hex_to_bytes, aes_encrypt_block, aes_decrypt_block
 
 def read_operation() -> str:
     """
     Returns "encrypt" or "decrypt".
     """
     while True:
-        s = input("Darbības izvēle (šifrēt/atšifrēt): ").strip().lower()
+        s = input("Darbības izvēle (šifrēt/atšifrēt) (1/2): ").strip().lower()
 
-        if s in {"šifrēt", "sifret", "sifret", "encrypt", "enc", "e", "1", "s"}:
+        if s in {"šifrēt", "sifret", "1", "s", "e"}:
             return "encrypt"
-        if s in {"atšifrēt", "atsifret", "decrypt", "dec", "d", "2", "a"}:
+        if s in {"atšifrēt", "atsifret", "2", "a", "d"}:
             return "decrypt"
 
-        print("Kļūda: ievadi 'šifrēt' vai 'atšifrēt' (vai īsi: e/d).")
+        print("Kļūda: ievadi 'šifrēt' vai 'atšifrēt' (1 vai 2).")
 
 def read_hex_16_bytes(prompt: str) -> bytes:
     """
@@ -29,7 +27,6 @@ def read_hex_16_bytes(prompt: str) -> bytes:
             print(f"Kļūda: jāievada tieši 32 heksadecimālie simboli (0-9, a-f). ({ex})")
 
 def main() -> None:
-    # Rijndael / AES-128 block cipher interface
     op = read_operation()
 
     key = read_hex_16_bytes(
@@ -47,7 +44,7 @@ def main() -> None:
         out = aes_decrypt_block(key, block, trace=False)
         print("Atšifrētais 128 bitu datu bloks (32 hex):")
 
-    print(bytes_to_hex(out))
+    print(out.hex())
 
 if __name__ == "__main__":
     main()

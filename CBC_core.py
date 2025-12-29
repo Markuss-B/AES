@@ -1,18 +1,9 @@
-# modes.py
-from __future__ import annotations
-
 from typing import List
 
-from AES_core import aes_encrypt_block, aes_decrypt_block
+from AES_core import aes_encrypt_block, aes_decrypt_block, xor_bytes
 
 
 BLOCK_SIZE = 16
-
-
-def xor_bytes(a: bytes, b: bytes) -> bytes:
-    if len(a) != len(b):
-        raise ValueError("xor_bytes: lengths differ")
-    return bytes(x ^ y for x, y in zip(a, b))
 
 def pad(data: bytes, block_size: int = BLOCK_SIZE) -> bytes:
     if block_size <= 0 or block_size > 255:
@@ -32,12 +23,10 @@ def unpad(padded: bytes, block_size: int = BLOCK_SIZE) -> bytes:
         raise ValueError("Invalid padding bytes")
     return padded[:-pad_len]
 
-
 def split_blocks(data: bytes, block_size: int = BLOCK_SIZE) -> List[bytes]:
     if len(data) % block_size != 0:
         raise ValueError("Data length must be multiple of block size")
     return [data[i:i + block_size] for i in range(0, len(data), block_size)]
-
 
 def cbc_encrypt(key: bytes, iv: bytes, plaintext: bytes) -> bytes:
     if len(key) != 16:
@@ -56,7 +45,6 @@ def cbc_encrypt(key: bytes, iv: bytes, plaintext: bytes) -> bytes:
         out.extend(c)
         prev = c
     return bytes(out)
-
 
 def cbc_decrypt(key: bytes, iv: bytes, ciphertext: bytes) -> bytes:
     if len(key) != 16:
@@ -85,7 +73,6 @@ def cbc_encrypt_file_format(key: bytes, iv: bytes, plaintext: bytes) -> bytes:
     """
     ct = cbc_encrypt(key, iv, plaintext)
     return iv + ct
-
 
 def cbc_decrypt_file_format(key: bytes, iv_plus_ciphertext: bytes) -> bytes:
     """

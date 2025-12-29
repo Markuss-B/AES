@@ -3,28 +3,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from AES_core import hex_to_bytes
 from CBC_core import cbc_encrypt_file_format, cbc_decrypt_file_format
-
-
-def read_operation() -> str:
-    while True:
-        s = input("Darbības izvēle (šifrēt/atšifrēt): ").strip().lower()
-        if s in {"šifrēt", "sifret", "encrypt", "e", "1", "s"}:
-            return "encrypt"
-        if s in {"atšifrēt", "atsifret", "decrypt", "d", "2", "a"}:
-            return "decrypt"
-        print("Kļūda: ievadi 'šifrēt' vai 'atšifrēt' (vai īsi: e/d).")
-
-
-def read_hex_16(prompt: str) -> bytes:
-    while True:
-        s = input(prompt).strip()
-        try:
-            return hex_to_bytes(s)  # expects exactly 32 hex chars -> 16 bytes
-        except Exception as ex:
-            print(f"Kļūda: jāievada tieši 32 hex simboli (0-9, a-f). ({ex})")
-
+from AES import read_hex_16_bytes, read_operation
 
 def read_path(prompt: str) -> Path:
     while True:
@@ -38,12 +18,12 @@ def read_path(prompt: str) -> Path:
 def main() -> None:
     op = read_operation()
 
-    key = read_hex_16(
+    key = read_hex_16_bytes(
         "128 bitu atslēga (32 hex, 0-9 a-f):\n"
     )
 
     if op == "encrypt":
-        iv = read_hex_16(
+        iv = read_hex_16_bytes(
             "128 bitu inicializācijas vektors IV (32 hex):\n"
         )
     else:
