@@ -243,7 +243,7 @@ def inv_shift_rows(state: State) -> None:
     state[2] = state[2][-2:] + state[2][:-2]
     state[3] = state[3][-3:] + state[3][:-3]
 
-def _inv_mul_tables(x: int) -> tuple[int, int, int, int]:
+def inv_mul_tables(x: int) -> tuple[int, int, int, int]:
     """
     Compute x * {09}, x * {0b}, x * {0d}, x * {0e} in GF(2^8),
     using ONLY 3 xtime() applications
@@ -279,10 +279,10 @@ def inv_mix_columns(state: State) -> None:
     for c in range(4):
         b0, b1, b2, b3 = state[0][c], state[1][c], state[2][c], state[3][c]
 
-        b0_09, b0_0b, b0_0d, b0_0e = _inv_mul_tables(b0)
-        b1_09, b1_0b, b1_0d, b1_0e = _inv_mul_tables(b1)
-        b2_09, b2_0b, b2_0d, b2_0e = _inv_mul_tables(b2)
-        b3_09, b3_0b, b3_0d, b3_0e = _inv_mul_tables(b3)
+        b0_09, b0_0b, b0_0d, b0_0e = inv_mul_tables(b0)
+        b1_09, b1_0b, b1_0d, b1_0e = inv_mul_tables(b1)
+        b2_09, b2_0b, b2_0d, b2_0e = inv_mul_tables(b2)
+        b3_09, b3_0b, b3_0d, b3_0e = inv_mul_tables(b3)
 
         state[0][c] = (b0_0e ^ b1_0b ^ b2_0d ^ b3_09) & 0xFF
         state[1][c] = (b0_09 ^ b1_0e ^ b2_0b ^ b3_0d) & 0xFF

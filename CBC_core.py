@@ -2,7 +2,6 @@ from typing import List
 
 from AES_core import aes_encrypt_block, aes_decrypt_block, xor_bytes
 
-
 BLOCK_SIZE = 16
 
 def pad(data: bytes, block_size: int = BLOCK_SIZE) -> bytes:
